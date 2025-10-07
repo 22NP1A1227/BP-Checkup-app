@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BP Health Checkup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #7db9e8, #00d4ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
+    }
+
+    h2 {
+      color: #0077b6;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #00b4d8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #0077b6;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>BP Health Checkup</h2>
+    <input type="number" id="systolic" placeholder="Enter Systolic (upper) value" />
+    <input type="number" id="diastolic" placeholder="Enter Diastolic (lower) value" />
+    <button onclick="checkBP()">Check BP</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function checkBP() {
+      let sys = document.getElementById("systolic").value;
+      let dia = document.getElementById("diastolic").value;
+      let result = document.getElementById("result");
+
+      if (sys === "" || dia === "") {
+        result.innerHTML = "⚠️ Please enter both values.";
+        result.style.color = "red";
+        return;
+      }
+
+      sys = parseInt(sys);
+      dia = parseInt(dia);
+
+      if (sys < 90 || dia < 60) {
+        result.innerHTML = "🩺 Low Blood Pressure";
+        result.style.color = "orange";
+      } else if ((sys >= 90 && sys <= 120) && (dia >= 60 && dia <= 80)) {
+        result.innerHTML = "✅ Normal Blood Pressure";
+        result.style.color = "green";
+      } else if ((sys > 120 && sys <= 139) || (dia > 80 && dia <= 89)) {
+        result.innerHTML = "⚠️ Pre-Hypertension (Monitor Regularly)";
+        result.style.color = "#b8860b";
+      } else if (sys >= 140 || dia >= 90) {
+        result.innerHTML = "🚨 High Blood Pressure (Hypertension)";
+        result.style.color = "red";
+      } else {
+        result.innerHTML = "Invalid input.";
+      }
+    }
+  </script>
+</body>
+</html>
